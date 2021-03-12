@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:process id="learning_camunda_process" isExecutable="true">
+    <bpmn:startEvent id="start_event">
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="start_event" targetRef="get_random_number" />
+    <bpmn:endEvent id="number_matched">
+      <bpmn:incoming>Flow_09ism2q</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="get_random_number" name="get random number" camunda:class="com.example.learning.camunda.delegate.GenerateRandomNumber">
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>Flow_10r9345</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="check_number">
+      <bpmn:incoming>Flow_1bf49d4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tlo5d2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1p9ksou</bpmn:outgoing>
+      <bpmn:outgoing>Flow_127dgck</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="make_guess" name="make guess" camunda:class="com.example.learning.camunda.delegate.MakeGuessDelegate">
+      <bpmn:incoming>Flow_0sge36o</bpmn:incoming>
+      <bpmn:incoming>Flow_0pl5d5r</bpmn:incoming>
+      <bpmn:incoming>Flow_10r9345</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bf49d4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="guess_higher" name="guess higher" camunda:class="com.example.learning.camunda.delegate.GuessHigherDelegate">
+      <bpmn:incoming>Flow_1p9ksou</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pl5d5r</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="guess_lower" name="guess lower" camunda:class="com.example.learning.camunda.delegate.GuessLowerDelegate">
+      <bpmn:incoming>Flow_1tlo5d2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0sge36o</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1tlo5d2" name="is lower" sourceRef="check_number" targetRef="guess_lower">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{current_guess &gt; random_number}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1p9ksou" name="is higher" sourceRef="check_number" targetRef="guess_higher">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{current_guess &lt; random_number}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1bf49d4" sourceRef="make_guess" targetRef="check_number" />
+    <bpmn:sequenceFlow id="Flow_0sge36o" sourceRef="guess_lower" targetRef="make_guess" />
+    <bpmn:sequenceFlow id="Flow_0pl5d5r" sourceRef="guess_higher" targetRef="make_guess" />
+    <bpmn:sequenceFlow id="Flow_127dgck" sourceRef="check_number" targetRef="finish_task">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{random_number == current_guess}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_10r9345" sourceRef="get_random_number" targetRef="make_guess" />
+    <bpmn:sequenceFlow id="Flow_09ism2q" sourceRef="finish_task" targetRef="number_matched" />
+    <bpmn:serviceTask id="finish_task" name="Finish" camunda:class="com.example.learning.camunda.delegate.FinishDelegate">
+      <bpmn:incoming>Flow_127dgck</bpmn:incoming>
+      <bpmn:outgoing>Flow_09ism2q</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="learning_camunda_process">
+      <bpmndi:BPMNEdge id="Flow_10r9345_di" bpmnElement="Flow_10r9345">
+        <di:waypoint x="320" y="357" />
+        <di:waypoint x="350" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_127dgck_di" bpmnElement="Flow_127dgck">
+        <di:waypoint x="795" y="357" />
+        <di:waypoint x="870" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pl5d5r_di" bpmnElement="Flow_0pl5d5r">
+        <di:waypoint x="710" y="140" />
+        <di:waypoint x="580" y="140" />
+        <di:waypoint x="580" y="330" />
+        <di:waypoint x="450" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sge36o_di" bpmnElement="Flow_0sge36o">
+        <di:waypoint x="720" y="530" />
+        <di:waypoint x="585" y="530" />
+        <di:waypoint x="585" y="387" />
+        <di:waypoint x="450" y="387" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bf49d4_di" bpmnElement="Flow_1bf49d4">
+        <di:waypoint x="450" y="357" />
+        <di:waypoint x="745" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1p9ksou_di" bpmnElement="Flow_1p9ksou">
+        <di:waypoint x="770" y="332" />
+        <di:waypoint x="770" y="301" />
+        <di:waypoint x="800" y="301" />
+        <di:waypoint x="800" y="180" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="739" y="238" width="42" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tlo5d2_di" bpmnElement="Flow_1tlo5d2">
+        <di:waypoint x="770" y="382" />
+        <di:waypoint x="770" y="490" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="721" y="443" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="188" y="357" />
+        <di:waypoint x="220" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09ism2q_di" bpmnElement="Flow_09ism2q">
+        <di:waypoint x="970" y="357" />
+        <di:waypoint x="1092" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start_event">
+        <dc:Bounds x="152" y="339" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0f9pec0_di" bpmnElement="get_random_number">
+        <dc:Bounds x="220" y="317" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_04rab4e_di" bpmnElement="check_number" isMarkerVisible="true">
+        <dc:Bounds x="745" y="332" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qtu873_di" bpmnElement="make_guess">
+        <dc:Bounds x="350" y="317" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hn7d41_di" bpmnElement="guess_higher">
+        <dc:Bounds x="710" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hro45h_di" bpmnElement="guess_lower">
+        <dc:Bounds x="720" y="490" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="number_matched">
+        <dc:Bounds x="1092" y="339" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="693" y="142" width="75" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1s5n66k_di" bpmnElement="finish_task">
+        <dc:Bounds x="870" y="317" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
