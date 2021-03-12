@@ -10,6 +10,8 @@ public abstract class LoggedDelegate implements JavaDelegate {
 
     private final Logger log = Logger.getLogger(LoggedDelegate.class.getName());
 
+    private final Boolean randomDelay = false;
+
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         log.info("\n\n ...delegate invoked by "
@@ -24,6 +26,8 @@ public abstract class LoggedDelegate implements JavaDelegate {
          + "\n guess_count" + execution.getVariable("guess_count")
          + "\n\n"
         );
-        Thread.sleep(100 * new Random().nextInt(10));
+        if(randomDelay) {
+            Thread.sleep(100 * new Random().nextInt(10));
+        }
     }
 }

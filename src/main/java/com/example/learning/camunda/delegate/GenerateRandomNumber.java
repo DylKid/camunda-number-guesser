@@ -1,9 +1,11 @@
 package com.example.learning.camunda.delegate;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
+@Component
 public class GenerateRandomNumber extends LoggedDelegate {
 
     @Override
