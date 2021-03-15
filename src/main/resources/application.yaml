@@ -2,3 +2,6 @@ spring.datasource.url: jdbc:h2:file:./camunda-h2-database
 camunda.bpm.admin-user:
   id: a
   password: a
+number-guessing-delay: -1
+number-guessing-range: 15
+random-number-range: 10000

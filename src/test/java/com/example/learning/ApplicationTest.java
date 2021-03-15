@@ -17,6 +17,6 @@ public class ApplicationTest {
 
     @Test
     public void shouldGoStraightThroughIfICheat() {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("learning_camunda_process");
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("number_guessing");
     }
 }

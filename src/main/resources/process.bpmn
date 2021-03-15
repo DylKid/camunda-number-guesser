@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
-  <bpmn:process id="learning_camunda_process" isExecutable="true">
+  <bpmn:process id="number_guessing" isExecutable="true">
     <bpmn:startEvent id="start_event">
       <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
     </bpmn:startEvent>
@@ -52,7 +52,11 @@
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="learning_camunda_process">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="number_guessing">
+      <bpmndi:BPMNEdge id="Flow_09ism2q_di" bpmnElement="Flow_09ism2q">
+        <di:waypoint x="970" y="357" />
+        <di:waypoint x="1092" y="357" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_10r9345_di" bpmnElement="Flow_10r9345">
         <di:waypoint x="320" y="357" />
         <di:waypoint x="350" y="357" />
@@ -97,12 +101,14 @@
         <di:waypoint x="188" y="357" />
         <di:waypoint x="220" y="357" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_09ism2q_di" bpmnElement="Flow_09ism2q">
-        <di:waypoint x="970" y="357" />
-        <di:waypoint x="1092" y="357" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start_event">
         <dc:Bounds x="152" y="339" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="number_matched">
+        <dc:Bounds x="1092" y="339" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="693" y="142" width="75" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0f9pec0_di" bpmnElement="get_random_number">
         <dc:Bounds x="220" y="317" width="100" height="80" />
@@ -118,12 +124,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0hro45h_di" bpmnElement="guess_lower">
         <dc:Bounds x="720" y="490" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="number_matched">
-        <dc:Bounds x="1092" y="339" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="693" y="142" width="75" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1s5n66k_di" bpmnElement="finish_task">
         <dc:Bounds x="870" y="317" width="100" height="80" />
